@@ -8,6 +8,8 @@ namespace Assets.Navigator
     [RequireComponent(typeof(Image))]
     class NavigatorElement : MonoBehaviour
     {
+        public int Index => _array.Index;
+
         [SerializeField] private Sprite _empty;
         [SerializeField] private Sprite _forward;
         [SerializeField] private Sprite _right;

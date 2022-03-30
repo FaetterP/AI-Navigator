@@ -6,7 +6,7 @@ namespace Assets.Utilities
     {
         private T[] _array;
         private int _index;
-
+        public int Index => _index;
 
         public CycleArray(T[] array)
         {
