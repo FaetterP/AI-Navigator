@@ -8,6 +8,7 @@ namespace Assets.Navigator
     [RequireComponent(typeof(Image))]
     class NavigatorElement : MonoBehaviour
     {
+        [SerializeField] private Sprite _empty;
         [SerializeField] private Sprite _forward;
         [SerializeField] private Sprite _right;
         [SerializeField] private Sprite _left;
@@ -19,7 +20,7 @@ namespace Assets.Navigator
         private void Awake()
         {
             _thisImage = GetComponent<Image>();
-            _array = new CycleArray<Sprite>(new Sprite[] { _forward, _right, _left });
+            _array = new CycleArray<Sprite>(new Sprite[] { _empty, _forward, _right, _left });
             _isSelected = false;
         }
 
