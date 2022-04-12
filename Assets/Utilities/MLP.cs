@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace Assets.Utilities
 {
-    class MLP
+    [Serializable] class MLP
     {
-        protected Random rnd = new Random();
+        protected static Random rnd = new Random();
         protected double[][,] _wMatrices;
         protected double[][] _layers;
 
