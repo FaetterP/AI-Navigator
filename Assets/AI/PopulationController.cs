@@ -1,10 +1,6 @@
 ﻿using Assets.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.AI
 {
@@ -22,33 +18,60 @@ namespace Assets.AI
         {
             if (IsAllDead())
             {
-                Respawn();
-            }
-        }
+                int maxIndex = 0;
+                double maxValue = _cars[0].GetScore();
 
-        private void Respawn()
-        {
-            foreach(var t in _cars)
-            {
-                Destroy(t.gameObject);
+                for(int i = 1; i < _cars.Length; i++)
+                {
+                    double value = _cars[1].GetScore();
+                    if (maxValue < value)
+                    {
+                        maxValue = value;
+                        maxIndex = i;
+                    }
+                }
+
+                Spawn(maxIndex);
             }
-            Spawn();
         }
 
         private void Spawn()
         {
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < _cars.Length; i++)
             {
                 _cars[i] = Instantiate(_example, transform);
-                _cars[i].MLP = _example.MLP.Clone();
-                _cars[i].MLP.RandomW(1);
+                _cars[i].MLP = new MLP(Settings.Lengths);
+                _cars[i].MLP.RandomW(0.1);
             }
 
         }
 
+        private void Spawn(int index)
+        {
+            MLP bestMLP = _cars[index].MLP.Clone();
+            TrainingCar.MLPs[_cars[index]._mlpIndex] = bestMLP.Clone();
+
+            foreach (var t in _cars)
+            {
+                Destroy(t.gameObject);
+            }
+
+            for (int i = 1; i < _cars.Length; i++)
+            {
+                _cars[i] = Instantiate(_example, transform);
+                _cars[i].MLP = bestMLP.Clone();
+                _cars[i].MLP.RandomW(0.1);
+            }
+
+            _cars[0] = Instantiate(_example, transform);
+            _cars[0].MLP = bestMLP.Clone();
+            _cars[0].GetComponent<Image>().color = Color.red;
+            _cars[0].transform.SetAsLastSibling();
+        }
+
         private bool IsAllDead()
         {
-            foreach(var t in _cars)
+            foreach (var t in _cars)
             {
                 if (t.IsDead == false)
                     return false;
