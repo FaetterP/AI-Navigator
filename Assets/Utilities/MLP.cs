@@ -6,7 +6,7 @@ namespace Assets.Utilities
     [Serializable] class MLP
     {
         protected static Random rnd = new Random();
-        protected double[][,] _wMatrices;
+        public double[][,] _wMatrices;
         protected double[][] _layers;
 
         public Func<double, double> ActivationFunction;

@@ -17,8 +17,8 @@ namespace Assets.Utilities
 
         public T GetNext()
         {
-            T ret = _array[_index];
             _index = (_index + 1) % _array.Length;
+            T ret = _array[_index];
             return ret;
         }
 

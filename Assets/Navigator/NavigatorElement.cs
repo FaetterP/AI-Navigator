@@ -22,13 +22,13 @@ namespace Assets.Navigator
         private void Awake()
         {
             _thisImage = GetComponent<Image>();
-            _array = new CycleArray<Sprite>(new Sprite[] { _empty, _forward, _right, _left });
+            _array = new CycleArray<Sprite>(new Sprite[] { _empty, _left, _forward, _right });
             _isSelected = false;
         }
 
         private void Start()
         {
-            _thisImage.sprite = _array.GetNext();
+            //_thisImage.sprite = _array.GetNext();
         }
 
         private void OnMouseDown()

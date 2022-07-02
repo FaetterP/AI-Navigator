@@ -46,10 +46,17 @@ namespace Assets.AI
 
         }
 
+        MLP bestMLP;
+
+        private void OnDisable()
+        {
+            Debug.Log(bestMLP._wMatrices[0][0, 0]);
+        }
+
         private void Spawn(int index)
         {
-            MLP bestMLP = _cars[index].MLP.Clone();
-            TrainingCar.MLPs[_cars[index]._mlpIndex] = bestMLP.Clone();
+            bestMLP = _cars[index].MLP.Clone();
+            Car.MLPs[_cars[index]._mlpIndex] = bestMLP;
 
             foreach (var t in _cars)
             {

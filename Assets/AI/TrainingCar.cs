@@ -7,20 +7,16 @@ namespace Assets.AI
     class TrainingCar : MonoBehaviour
     {
         public int _mlpIndex;
-        public static MLP[] MLPs = new MLP[] { Car.LeftMLP, Car.ForwardMLP, Car.RightMLP };
+        public static MLP[] MLPs = new MLP[] { new MLP(Settings.Lengths), new MLP(Settings.Lengths), new MLP(Settings.Lengths) };
 
         public bool IsDead = false;
         public MLP MLP;
-
-        private void Awake()
-        {
-            //MLP = MLPs[_mlpIndex].Clone();
-        }
 
         private void Update()
         {
             if (IsDead)
                 return;
+
             Vector2 position = transform.localPosition;
             double z = MLP.Predict(new double[] { position.x, position.y, transform.localEulerAngles.z })[0] * 5 - 2.5;
             transform.localEulerAngles += new Vector3(0, 0, (float)z);

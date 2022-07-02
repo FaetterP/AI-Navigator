@@ -20,6 +20,7 @@ namespace Assets.Navigator
                 {
                     GameObject element = Instantiate(_element, transform);
                     element.transform.localPosition = new Vector2(100 * (i - _x / 2f), 100 * (j - _y / 2f));
+                    element.transform.SetAsFirstSibling();
                 }
             }
         }
